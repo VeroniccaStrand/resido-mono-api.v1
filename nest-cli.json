@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "monorepo": true,
+  "root": "apps/resido-core",
+  "sourceRoot": "apps/resido-core/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/resido-core/tsconfig.app.json"
+  },
+  "projects": {
+    "auth-center": {
+      "type": "application",
+      "root": "apps/auth-center",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth-center/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth-center/tsconfig.app.json"
+      }
+    },
+    "black-admin": {
+      "type": "application",
+      "root": "apps/black-admin",
+      "entryFile": "main",
+      "sourceRoot": "apps/black-admin/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/black-admin/tsconfig.app.json"
+      }
+    },
+    "gateway-api": {
+      "type": "application",
+      "root": "apps/gateway-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway-api/tsconfig.app.json"
+      }
+    },
+    "resido-core": {
+      "type": "application",
+      "root": "apps/resido-core",
+      "entryFile": "main",
+      "sourceRoot": "apps/resido-core/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/resido-core/tsconfig.app.json"
+      }
+    }
+  }
+}
