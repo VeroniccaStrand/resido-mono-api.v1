@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/resido-mono-api.v1/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/resido-mono-api.v1/test/jest-e2e.json",
+    "start:all": "concurrently \"npm run start api-gateway\" \"npm run start black-admin\" \"npm run start resido-core\""
   },
   "dependencies": {
     "@mikro-orm/core": "^6.4.7",
@@ -31,6 +32,7 @@
     "@nestjs/platform-express": "^11.0.1",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
+    "concurrently": "^9.1.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -79,7 +81,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1"
+    }
   }
 }

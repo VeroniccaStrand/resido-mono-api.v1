@@ -32,20 +32,4 @@ export class TenantService {
       return tenant;
     });
   }
-
-  findAll() {
-    return `This action returns all tenant`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} tenant`;
-  }
-
-  update(id: number, updateTenantDto: UpdateTenantDto) {
-    return `This action updates a #${id} tenant`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} tenant`;
-  }
 }

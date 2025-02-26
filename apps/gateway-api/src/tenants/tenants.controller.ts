@@ -1,14 +1,21 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { CreateTenantDto } from 'apps/black-admin/src/tenant/dto/create-tenant.dto';
+import { Controller } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { TenantsService } from './tenants.service';
+import { TENANT_PATTERNS } from '@app/contracts/tenants/tenants.patterns';
+import { TenantDto } from '@app/contracts/tenants/tenant.dto';
+import { CreateTenantDto } from '@app/contracts/tenants/create-tenant.dto';
 
-@Controller('tenants')
+@Controller()
 export class TenantsController {
-  constructor(
-    @Inject('BLACK_ADMIN_SERVICE') private readonly client: ClientProxy,
-  ) {}
-  @Post()
-  createTenant(@Body() createTenantDto: CreateTenantDto) {
-    return this.client.send({ cmd: 'create-tenant' }, { createTenantDto });
+  constructor(private readonly tenantsService: TenantsService) {}
+
+  @MessagePattern(TENANT_PATTERNS.CREATE)
+  async createTenant(
+    @Payload() createTenantDto: CreateTenantDto,
+  ): Promise<TenantDto> {
+    const tenant = await this.tenantsService.createTenant(createTenantDto);
+
+    // 🔹 När Black-Admin har skapat tenanten, skicka till Resido-Core
+    return this.tenantsService.sendToResidoCore(tenant);
   }
 }
